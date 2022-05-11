@@ -2,6 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+import 'package:weather_app_ui/screen/home_screen/components/sliding_up_panel_background.dart';
+import 'package:weather_app_ui/screen/home_screen/components/weather_detail_card.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -110,7 +112,19 @@ class SlidingScreen extends StatelessWidget {
       ),
       color: Colors.transparent,
 
-      // boxShadow: <>[],
+      boxShadow: <BoxShadow>[
+        BoxShadow(
+          color: const Color(0xFF3A3F54).withOpacity(0.5),
+          blurRadius: 32.0,
+          offset: const Offset(0,-20),
+        ),
+        const BoxShadow(
+          color: Color(0x8CE0D9FF),
+          blurRadius: 0.0,
+          offset: Offset(0,-2),
+          spreadRadius: -1.0,
+        ),
+      ],
       minHeight: 285.0,
       maxHeight: MediaQuery.of(context).size.height * 0.75,
       panel: Stack(
@@ -129,9 +143,6 @@ class SlidingScreen extends StatelessWidget {
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height * 0.75,
                 decoration: const BoxDecoration(
-                  // border: Border(
-                  //   top: BorderSide(color: Colors.white, width: 2.0),
-                  // ),
                   boxShadow: <BoxShadow>[
                   BoxShadow(
                     offset: Offset(0, 1),
@@ -153,7 +164,7 @@ class SlidingScreen extends StatelessWidget {
               ),
             ),
           ),
-          SlidingPanelBackground(),
+          const SlidingPanelBackground(),
           Column(
             children: <Widget>[
               const SizedBox(height: 20.0),
@@ -175,7 +186,7 @@ class SlidingScreen extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 15.0,
                       fontWeight: FontWeight.bold,
-                      color: Colors.white54,
+                      color: Colors.white,
                     ),
                   ),
                   Text(
@@ -197,13 +208,13 @@ class SlidingScreen extends StatelessWidget {
                     physics: const BouncingScrollPhysics(),
                     scrollDirection: Axis.horizontal,
                     children: const <Widget>[
-                      WeatherDetailCard(),
-                      WeatherDetailCard(),
-                      WeatherDetailCard(),
-                      WeatherDetailCard(),
-                      WeatherDetailCard(),
-                      WeatherDetailCard(),
-                      WeatherDetailCard(),
+                      WeatherDetailCard(textTime: "12 AM",currentCelsius: "19", imagePath: "assets/images/weather/moon/1.png"),
+                      WeatherDetailCard(textTime: "Now",currentCelsius: "19", imagePath: "assets/images/weather/moon/3.png"),
+                      WeatherDetailCard(textTime: "2 AM",currentCelsius: "18", imagePath: "assets/images/weather/moon/2.png"),
+                      WeatherDetailCard(textTime: "3 AM",currentCelsius: "18", imagePath: "assets/images/weather/moon/3.png"),
+                      WeatherDetailCard(textTime: "4 AM",currentCelsius: "17", imagePath: "assets/images/weather/moon/4.png"),
+                      WeatherDetailCard(textTime: "5 AM",currentCelsius: "16", imagePath: "assets/images/weather/moon/1.png"),
+                      WeatherDetailCard(textTime: "6 AM",currentCelsius: "17", imagePath: "assets/images/weather/moon/2.png"),
                     ],
                   ),
                 ),
@@ -218,116 +229,4 @@ class SlidingScreen extends StatelessWidget {
   }
 }
 
-class WeatherDetailCard extends StatelessWidget {
-  const WeatherDetailCard({Key? key}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
-        width: 60.0,
-        height: 160.0,
-        decoration: BoxDecoration(
-          color: Colors.redAccent,
-          borderRadius: BorderRadius.circular(30.0),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            const Text(
-              "12 AM",
-              style: TextStyle(
-                fontSize: 15.0,
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(
-              height: 50.0,
-              child: Image.asset(
-                "assets/images/weather/moon/1.png",
-                fit: BoxFit.cover,
-              ),
-            ),
-            const Text(
-              "19°",
-              style: TextStyle(
-                fontSize: 18.0,
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class SlidingPanelBackground extends StatelessWidget {
-  const SlidingPanelBackground({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: <Widget>[
-        Positioned(
-          left: 50.0,
-          child: Container(
-            height: 150.0,
-            width: 150.0,
-            decoration: BoxDecoration(
-              gradient: RadialGradient(
-                colors: <Color>[
-                  Colors.yellow.withOpacity(0.3),
-                  Colors.yellow.withOpacity(0.2),
-                  Colors.yellow.withOpacity(0.1),
-                  Colors.yellow.withOpacity(0.01),
-                ],
-              ),
-            ),
-          ),
-        ),
-        Positioned(
-          left: 100.0,
-          top: -100,
-          child: Container(
-            height: 250.0,
-            width: 250.0,
-            decoration: BoxDecoration(
-              gradient: RadialGradient(
-                colors: <Color>[
-                  Colors.pink.withOpacity(0.3),
-                  Colors.pink.withOpacity(0.2),
-                  Colors.pink.withOpacity(0.1),
-                  Colors.pink.withOpacity(0.01),
-                ],
-              ),
-            ),
-          ),
-        ),
-        // Positioned(
-        //   top: 0.0,
-        //   child: ClipRRect(
-        //     borderRadius: BorderRadius.circular(40.0),
-        //     child: Container(
-        //       height: 2.0,
-        //       width: MediaQuery.of(context).size.width,
-        //       decoration: BoxDecoration(
-        //         boxShadow: <BoxShadow>[
-        //           BoxShadow(
-        //             offset: Offset(0, 1),
-        //             color: Colors.white,
-        //             spreadRadius: 0.0,
-        //             blurRadius: 0.0,
-        //           ),
-        //         ],
-        //       ),
-        //     ),
-        //   ),
-        // ),
-      ],
-    );
-  }
-}
